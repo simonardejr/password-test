@@ -17,6 +17,10 @@ object PasswordManager {
             invalidTypes.add(InvalidType.Minimo1Numero)
         }
 
+        if (password.length > 15) {
+            invalidTypes.add(InvalidType.MaiorQue15Caracteres)
+        }
+
 
 
         if (invalidTypes.isNotEmpty()) {

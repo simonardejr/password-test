@@ -38,6 +38,20 @@ class PasswordManagerTest {
             .contains(InvalidType.Minimo1Numero)
     }
 
+    @Test
+    fun `Senha com mais de 15 caracteres, retorna erro de senha com mais de 15 caracteres`() {
+        val password = buildString {
+            for(i in 1 until 20) {
+                append(i)
+            }
+        }
+        val result = PasswordManager.calculatePassword(password)
+
+        assertThat(result.javaClass).isEqualTo(PasswordStatus.Invalid::class.java)
+
+        assertThat((result as PasswordStatus.Invalid).type)
+            .contains(InvalidType.MaiorQue15Caracteres)
+    }
 
 
 
