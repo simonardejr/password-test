@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.passwordtestingiesb.databinding.FragmentPasswordBinding
+import com.example.passwordtestingiesb.managers.InvalidType
+import com.example.passwordtestingiesb.managers.PasswordManager
+import com.example.passwordtestingiesb.managers.PasswordStatus
 
 
 class PasswordFragment : Fragment() {
@@ -28,6 +31,20 @@ class PasswordFragment : Fragment() {
         binding.includePassword.tiePassword.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(password: Editable) {
                 val passwordStr = password.toString()
+                val passwordCheck = PasswordManager.calculatePassword(passwordStr)
+
+                changeAllAlertsToVisible()
+
+                if (passwordCheck is PasswordStatus.Invalid) {
+                    if ( ! passwordCheck.type.contains(InvalidType.Minimo1Numero) ) {
+                        binding.includePassword.numbers.visibility = View.GONE
+                        binding.includePassword.numbersImg.visibility = View.GONE
+                    }
+                    if ( ! passwordCheck.type.contains(InvalidType.Minimo8Caracteres) ) {
+                        binding.includePassword.eightCharacters.visibility = View.GONE
+                        binding.includePassword.eightImg.visibility = View.GONE
+                    }
+                } else { changeAllAlertsToGone() }
 
                 when {
                     passwordStr.isEmpty() -> {
@@ -43,6 +60,20 @@ class PasswordFragment : Fragment() {
                         binding.includePassword.strengthLevelTxt.text = "Sua senha é forte"
                     }
                 }
+            }
+
+            fun changeAllAlertsToVisible() {
+                binding.includePassword.numbers.visibility = View.VISIBLE
+                binding.includePassword.numbersImg.visibility = View.VISIBLE
+                binding.includePassword.eightCharacters.visibility = View.VISIBLE
+                binding.includePassword.eightImg.visibility = View.VISIBLE
+            }
+
+            fun changeAllAlertsToGone() {
+                binding.includePassword.numbers.visibility = View.GONE
+                binding.includePassword.numbersImg.visibility = View.GONE
+                binding.includePassword.eightCharacters.visibility = View.GONE
+                binding.includePassword.eightImg.visibility = View.GONE
             }
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
