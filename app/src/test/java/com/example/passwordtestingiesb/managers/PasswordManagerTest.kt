@@ -53,6 +53,20 @@ class PasswordManagerTest {
             .contains(InvalidType.MaiorQue15Caracteres)
     }
 
+    @Test
+    fun `Senha sem caracteres especiais, retorna erro de sem de caracteres especiais`() {
+        val password = buildString {
+            for(i in 1 until 5) {
+                append("a")
+            }
+        }
+        val result = PasswordManager.calculatePassword(password)
+
+        assertThat(result.javaClass).isEqualTo(PasswordStatus.Invalid::class.java)
+
+        assertThat((result as PasswordStatus.Invalid).type)
+            .contains(InvalidType.Minimo1CaractereEspecial)
+    }
 
 
 

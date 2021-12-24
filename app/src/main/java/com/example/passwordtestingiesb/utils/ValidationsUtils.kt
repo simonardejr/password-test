@@ -12,8 +12,9 @@ object ValidationsUtils {
     }
 
     fun isContainSpecialCharacter(str: String): Boolean {
-
-        return false
+        val regexPatt: Pattern = Pattern.compile("[^A-Za-z0-9]", Pattern.CASE_INSENSITIVE)
+        val matcherRegex: Matcher = regexPatt.matcher(str)
+        return matcherRegex.find()
     }
 
 

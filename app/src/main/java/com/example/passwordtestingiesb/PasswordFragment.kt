@@ -46,6 +46,10 @@ class PasswordFragment : Fragment() {
                         binding.includePassword.eightCharacters.visibility = View.GONE
                         binding.includePassword.eightImg.visibility = View.GONE
                     }
+                    if ( ! passwordCheck.type.contains(InvalidType.Minimo1CaractereEspecial) ) {
+                        binding.includePassword.characters.visibility = View.GONE
+                        binding.includePassword.charactersImg.visibility = View.GONE
+                    }
                 } else { changeAllAlertsToGone() }
 
                 when {
@@ -69,6 +73,8 @@ class PasswordFragment : Fragment() {
                 binding.includePassword.numbersImg.visibility = View.VISIBLE
                 binding.includePassword.eightCharacters.visibility = View.VISIBLE
                 binding.includePassword.eightImg.visibility = View.VISIBLE
+                binding.includePassword.characters.visibility = View.VISIBLE
+                binding.includePassword.charactersImg.visibility = View.VISIBLE
             }
 
             fun changeAllAlertsToGone() {
@@ -76,6 +82,8 @@ class PasswordFragment : Fragment() {
                 binding.includePassword.numbersImg.visibility = View.GONE
                 binding.includePassword.eightCharacters.visibility = View.GONE
                 binding.includePassword.eightImg.visibility = View.GONE
+                binding.includePassword.characters.visibility = View.GONE
+                binding.includePassword.charactersImg.visibility = View.GONE
             }
 
             fun setStrengthLevelTxt(str: String, strengthLvl: Int) {

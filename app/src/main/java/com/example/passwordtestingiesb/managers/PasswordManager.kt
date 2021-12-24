@@ -21,6 +21,10 @@ object PasswordManager {
             invalidTypes.add(InvalidType.MaiorQue15Caracteres)
         }
 
+        if (ValidationsUtils.isContainSpecialCharacter(password).not()) {
+            invalidTypes.add(InvalidType.Minimo1CaractereEspecial)
+        }
+
 
 
         if (invalidTypes.isNotEmpty()) {
