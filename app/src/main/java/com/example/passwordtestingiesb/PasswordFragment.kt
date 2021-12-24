@@ -46,6 +46,10 @@ class PasswordFragment : Fragment() {
                         binding.includePassword.eightCharacters.visibility = View.GONE
                         binding.includePassword.eightImg.visibility = View.GONE
                     }
+                    if ( ! passwordCheck.type.contains(InvalidType.MaiorQue15Caracteres) ) {
+                        binding.includePassword.maxChars.visibility = View.GONE
+                        binding.includePassword.maxCharsImg.visibility = View.GONE
+                    }
                     if ( ! passwordCheck.type.contains(InvalidType.Minimo1CaractereEspecial) ) {
                         binding.includePassword.characters.visibility = View.GONE
                         binding.includePassword.charactersImg.visibility = View.GONE
@@ -73,6 +77,8 @@ class PasswordFragment : Fragment() {
                 binding.includePassword.numbersImg.visibility = View.VISIBLE
                 binding.includePassword.eightCharacters.visibility = View.VISIBLE
                 binding.includePassword.eightImg.visibility = View.VISIBLE
+                binding.includePassword.maxChars.visibility = View.VISIBLE
+                binding.includePassword.maxCharsImg.visibility = View.VISIBLE
                 binding.includePassword.characters.visibility = View.VISIBLE
                 binding.includePassword.charactersImg.visibility = View.VISIBLE
             }
@@ -82,6 +88,8 @@ class PasswordFragment : Fragment() {
                 binding.includePassword.numbersImg.visibility = View.GONE
                 binding.includePassword.eightCharacters.visibility = View.GONE
                 binding.includePassword.eightImg.visibility = View.GONE
+                binding.includePassword.maxChars.visibility = View.GONE
+                binding.includePassword.maxCharsImg.visibility = View.GONE
                 binding.includePassword.characters.visibility = View.GONE
                 binding.includePassword.charactersImg.visibility = View.GONE
             }
