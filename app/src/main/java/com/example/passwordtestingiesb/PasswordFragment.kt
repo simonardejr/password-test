@@ -1,5 +1,6 @@
 package com.example.passwordtestingiesb
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +12,7 @@ import com.example.passwordtestingiesb.databinding.FragmentPasswordBinding
 import com.example.passwordtestingiesb.managers.InvalidType
 import com.example.passwordtestingiesb.managers.PasswordManager
 import com.example.passwordtestingiesb.managers.PasswordStatus
+import com.example.passwordtestingiesb.managers.StrengthLevel
 
 
 class PasswordFragment : Fragment() {
@@ -48,16 +50,16 @@ class PasswordFragment : Fragment() {
 
                 when {
                     passwordStr.isEmpty() -> {
-                        binding.includePassword.strengthLevelTxt.text = ""
+                        setStrengthLevelTxt("", 0)
                     }
                     passwordStr.length < 8 -> {
-                        binding.includePassword.strengthLevelTxt.text = "Sua senha é fraca"
+                        setStrengthLevelTxt("Sua senha é fraca", 1)
                     }
                     passwordStr.length in 8..9 -> {
-                        binding.includePassword.strengthLevelTxt.text = "Sua senha é média"
+                        setStrengthLevelTxt("Sua senha é média", 2)
                     }
                     passwordStr.length > 10 -> {
-                        binding.includePassword.strengthLevelTxt.text = "Sua senha é forte"
+                        setStrengthLevelTxt("Sua senha é forte", 3)
                     }
                 }
             }
@@ -74,6 +76,30 @@ class PasswordFragment : Fragment() {
                 binding.includePassword.numbersImg.visibility = View.GONE
                 binding.includePassword.eightCharacters.visibility = View.GONE
                 binding.includePassword.eightImg.visibility = View.GONE
+            }
+
+            fun setStrengthLevelTxt(str: String, strengthLvl: Int) {
+                binding.includePassword.strengthLevelTxt.text = str
+                when {
+                    strengthLvl < 1 -> {
+                        setBarColor(StrengthLevel.NONE.color, StrengthLevel.NONE.color, StrengthLevel.NONE.color)
+                    }
+                    strengthLvl == 1 -> {
+                        setBarColor(StrengthLevel.WEAK.color, StrengthLevel.NONE.color, StrengthLevel.NONE.color)
+                    }
+                    strengthLvl == 2 -> {
+                        setBarColor(StrengthLevel.MEDIUM.color, StrengthLevel.MEDIUM.color, StrengthLevel.NONE.color)
+                    }
+                    strengthLvl == 3 -> {
+                        setBarColor(StrengthLevel.STRONG.color, StrengthLevel.STRONG.color, StrengthLevel.STRONG.color)
+                    }
+                }
+            }
+
+            fun setBarColor(colorWeak: Int, colorMedium: Int, colorStrong: Int) {
+                binding.includePassword.strengthLevelIndicatorWeak.setBackgroundResource(colorWeak)
+                binding.includePassword.strengthLevelIndicatorMedium.setBackgroundResource(colorMedium)
+                binding.includePassword.strengthLevelIndicatorStrong.setBackgroundResource(colorStrong)
             }
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
